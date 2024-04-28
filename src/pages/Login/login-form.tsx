@@ -45,9 +45,12 @@ function LoginForm() {
         <div className="flex flex-col">
           <div className="flex justify-between">
             <Label htmlFor="password" title="Password" />
-            <a href="#" className="text-[#4F46E5] font-semibold capitalize">
+            <Link
+              to="/forgot-password"
+              className="text-[#4F46E5] font-semibold capitalize"
+            >
               Lupa kata sandi?
-            </a>
+            </Link>
           </div>
           <InputText
             type="password"
