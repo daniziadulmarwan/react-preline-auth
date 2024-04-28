@@ -1,5 +1,5 @@
 import { Component } from "react";
-import AuthImg from "@/assets/auth-img.png";
+import AuthImg from "@/assets/images/login-img.png";
 import LoginForm from "./login-form";
 
 export default class Login extends Component {
