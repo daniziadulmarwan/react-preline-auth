@@ -1,13 +1,19 @@
 import InputText from "@/components/input-text";
 import Label from "@/components/label";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log({ email });
+    if (email === "daniziadulmarwan@gmail.com") {
+      navigate("/reset-password");
+    } else {
+      toast.error("Email tidak terdaftar");
+    }
   };
 
   return (

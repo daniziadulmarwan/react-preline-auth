@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from "react";
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   id?: string;
-  type: string;
+  type: "text" | "password";
   value?: string;
   placeholder?: string;
 }
