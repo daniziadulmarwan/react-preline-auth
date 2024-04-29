@@ -1,15 +1,21 @@
 import InputCheckbox from "@/components/input-checkbox";
 import InputText from "@/components/input-text";
 import Label from "@/components/label";
+import { useAuth } from "@/contexts/auth";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+  const token = useAuth();
+
   const handleClick = () => {
-    console.log({ email, password });
+    token.getToken(email);
+    localStorage.setItem("token", email);
+    navigate("/dashboard");
   };
 
   return (
