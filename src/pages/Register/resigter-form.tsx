@@ -13,7 +13,7 @@ function RegisterForm() {
   };
 
   return (
-    <div className="mt-20">
+    <div className="my-20">
       {/* Brand */}
       <div
         id="brand"

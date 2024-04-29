@@ -5,9 +5,9 @@ import LoginForm from "./login-form";
 export default class Login extends Component {
   render() {
     return (
-      <div className="w-screen h-screen flex">
-        <div className="w-1/2 h-full">
-          <div className="px-[140px]">
+      <div className="w-screen h-screen flex overflow-hidden">
+        <div className="w-1/2 h-full overflow-y-auto">
+          <div className="px-[80px] 2xl:px-[140px]">
             <LoginForm />
           </div>
         </div>

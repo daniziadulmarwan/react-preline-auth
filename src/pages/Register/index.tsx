@@ -7,7 +7,7 @@ export default class Register extends Component {
     return (
       <div className="w-screen h-screen flex overflow-hidden">
         <div className="w-1/2 h-full overflow-y-auto">
-          <div className="px-[140px]">
+          <div className="px-[80px] 2xl:px-[140px]">
             <RegisterForm />
           </div>
         </div>

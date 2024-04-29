@@ -13,7 +13,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="mt-20">
+    <div className="my-20">
       <div
         id="brand"
         className="bg-[#EEF2FF] rounded-md h-[60px] w-[60px] grid place-items-center"
