@@ -70,16 +70,18 @@ function LoginForm() {
         </div>
 
         <div className="flex">
-          <InputCheckbox
-            id="remember_me"
-            className="peer shrink-0 w-[25px] h-[25px] bg-[#f3f4f6] appearance-none rounded-[3px] checked:bg-[#f3f4f6] checked:border-0"
-            checked={check}
-            onChange={(e) => setCheck(e.target.checked)}
-          />
-          <Check
-            size={24}
-            className="absolute hidden peer-checked:block pointer-events-none"
-          />
+          <div className="relative">
+            <InputCheckbox
+              id="remember_me"
+              className="peer shrink-0 w-[25px] h-[25px] bg-[#f3f4f6] appearance-none rounded-[3px] checked:bg-[#f3f4f6] checked:border-0"
+              checked={check}
+              onChange={(e) => setCheck(e.target.checked)}
+            />
+            <Check
+              size={24}
+              className="absolute hidden peer-checked:block pointer-events-none top-0"
+            />
+          </div>
           <Label htmlFor="remember_me" title="Ingat saya" className="ml-4" />
         </div>
 

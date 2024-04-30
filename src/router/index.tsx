@@ -3,9 +3,11 @@ import ForgotPassword from "@/pages/ForgotPassword";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import ResetPassword from "@/pages/ResetPassword";
-import PrivateRoute from "./private-route";
 import Dashboard from "@/pages/Dashboard";
+
+import PrivateRoute from "./private-route";
 import GuestRoute from "./guest-route";
+import ResetPasswordRoute from "./reset-password-route.tsx";
 
 export default function Router() {
   return (
@@ -14,6 +16,9 @@ export default function Router() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Route>
+
+      <Route element={<ResetPasswordRoute />}>
         <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
