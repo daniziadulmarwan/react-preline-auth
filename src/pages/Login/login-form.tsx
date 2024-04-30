@@ -2,12 +2,14 @@ import InputCheckbox from "@/components/input-checkbox";
 import InputText from "@/components/input-text";
 import Label from "@/components/label";
 import { useAuth } from "@/contexts/auth";
+import { Check } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [check, setCheck] = useState<boolean>();
 
   const navigate = useNavigate();
   const token = useAuth();
@@ -68,7 +70,16 @@ function LoginForm() {
         </div>
 
         <div className="flex">
-          <InputCheckbox id="remember_me" />
+          <InputCheckbox
+            id="remember_me"
+            className="peer shrink-0 w-[25px] h-[25px] bg-[#f3f4f6] appearance-none rounded-[3px] checked:bg-[#f3f4f6] checked:border-0"
+            checked={check}
+            onChange={(e) => setCheck(e.target.checked)}
+          />
+          <Check
+            size={24}
+            className="absolute hidden peer-checked:block pointer-events-none"
+          />
           <Label htmlFor="remember_me" title="Ingat saya" className="ml-4" />
         </div>
 
