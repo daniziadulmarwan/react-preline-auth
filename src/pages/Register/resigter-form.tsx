@@ -1,15 +1,35 @@
 import InputText from "@/components/input-text";
 import Label from "@/components/label";
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { z } from "zod";
+
+const signupSchema = z.object({
+  name: z.string().nonempty({ message: "Nama tidak boleh kosong" }),
+  email: z
+    .string()
+    .nonempty({ message: "Email tidak boleh kosong" })
+    .email({ message: "Format email salah" }),
+  password: z
+    .string()
+    .nonempty({ message: "Password tidak boleh kosong" })
+    .min(6, { message: "Password minimal terdiri dari 6 karakter" }),
+});
+
+type SignUpSchema = z.infer<typeof signupSchema>;
 
 function RegisterForm() {
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signupSchema),
+  });
 
-  const handleClick = () => {
-    console.log({ fullname, email, password });
+  const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -30,16 +50,23 @@ function RegisterForm() {
       </p>
 
       {/* Form */}
-      <form className="mt-11 w-[540px] space-y-[30px]">
+      <form
+        className="w-full mt-11 md:w-[540px] space-y-[30px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex flex-col">
           <Label title="Nama Lengkap" htmlFor="fullname" />
           <InputText
             id="fullname"
             type="text"
             placeholder="Jhon Doe"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
+            {...register("name")}
           />
+          {errors.name && (
+            <small className="text-red-600 italic mt-1">
+              {errors.name.message}
+            </small>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -48,9 +75,13 @@ function RegisterForm() {
             type="text"
             id="email"
             placeholder="example@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            {...register("email")}
           />
+          {errors.email && (
+            <small className="text-red-600 italic mt-1">
+              {errors.email.message}
+            </small>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -59,14 +90,17 @@ function RegisterForm() {
             type="password"
             id="password"
             placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password")}
           />
+          {errors.password && (
+            <small className="text-red-600 italic mt-1">
+              {errors.password.message}
+            </small>
+          )}
         </div>
 
         <button
-          type="button"
-          onClick={handleClick}
+          type="submit"
           className="mt-8 bg-[#4F46E5] py-6 w-full rounded-[6px] text-base text-white font-semibold shadow-lg"
         >
           Masuk
@@ -74,7 +108,7 @@ function RegisterForm() {
       </form>
 
       {/* Link to Login */}
-      <p className="mt-14 text-center w-[540px] text-base font-semibold text-[#4B5563]">
+      <p className="w-full mt-14 text-center md:w-[540px] text-base font-semibold text-[#4B5563]">
         Sudah punya akun?{" "}
         <Link to={"/"} className="text-[#4F46E5]">
           Masuk sekarang!

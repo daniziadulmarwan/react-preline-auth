@@ -1,24 +1,48 @@
-import InputCheckbox from "@/components/input-checkbox";
-import InputText from "@/components/input-text";
 import Label from "@/components/label";
-import { useAuth } from "@/contexts/auth";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "@phosphor-icons/react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { z } from "zod";
+
+const signinSchema = z.object({
+  email: z
+    .string()
+    .nonempty({ message: "Email tidak boleh kosong" })
+    .email({ message: "Email tidak valid" })
+    .trim(),
+  password: z
+    .string()
+    .nonempty({ message: "Password tidak boleh kosong" })
+    .min(6, { message: "Password minimal terdiri dari 6 karakter" })
+    .trim(),
+  agree: z.boolean().nullable(),
+});
+
+type SignInSchema = z.infer<typeof signinSchema>;
 
 function LoginForm() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [check, setCheck] = useState<boolean>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInSchema>({
+    resolver: zodResolver(signinSchema),
+  });
 
-  const navigate = useNavigate();
-  const token = useAuth();
-
-  const handleClick = () => {
-    token.getToken(email);
-    localStorage.setItem("token", email);
-    navigate("/dashboard");
+  const onSubmit: SubmitHandler<SignInSchema> = (data) => {
+    console.log(data);
+    console.log("makan");
   };
+
+  // const navigate = useNavigate();
+  // const token = useAuth();
+
+  // const handleClick = () => {
+  //   token.getToken(email);
+  //   localStorage.setItem("token", email);
+  //   navigate("/dashboard");
+  // };
 
   return (
     <div className="my-20">
@@ -38,16 +62,24 @@ function LoginForm() {
         <span className="font-semibold text-black">Jujur dan Kuat!</span>
       </p>
 
-      <form className="mt-11 w-[540px] space-y-[30px]">
+      <form
+        className="mt-11 w-[540px] space-y-[30px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex flex-col">
           <Label htmlFor="email" title="Email" />
-          <InputText
-            type="text"
+          <input
             id="email"
+            type="text"
             placeholder="example@example.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            className="bg-[#F3F4F6] py-6 px-10 rounded-[8px] focus:outline-none placeholder:text-black"
+            {...register("email")}
           />
+          {errors.email && (
+            <small className="text-red-600 italic mt-1">
+              {errors.email.message}
+            </small>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -60,22 +92,27 @@ function LoginForm() {
               Lupa kata sandi?
             </Link>
           </div>
-          <InputText
-            type="password"
+          <input
             id="password"
+            type="password"
             placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className="bg-[#F3F4F6] py-6 px-10 rounded-[8px] focus:outline-none placeholder:text-black"
+            {...register("password")}
           />
+          {errors.password && (
+            <small className="text-red-600 italic mt-1">
+              {errors.password.message}
+            </small>
+          )}
         </div>
 
         <div className="flex">
           <div className="relative">
-            <InputCheckbox
+            <input
+              type="checkbox"
               id="remember_me"
               className="peer shrink-0 w-[25px] h-[25px] bg-[#f3f4f6] appearance-none rounded-[3px] checked:bg-[#f3f4f6] checked:border-0"
-              checked={check}
-              onChange={(e) => setCheck(e.target.checked)}
+              {...register("agree")}
             />
             <Check
               size={24}
@@ -84,10 +121,12 @@ function LoginForm() {
           </div>
           <Label htmlFor="remember_me" title="Ingat saya" className="ml-4" />
         </div>
+        {errors.agree && (
+          <small className="text-red-600 italic">{errors.agree.message}</small>
+        )}
 
         <button
-          type="button"
-          onClick={handleClick}
+          type="submit"
           className="mt-8 bg-[#4F46E5] py-6 w-full rounded-[6px] text-base text-white font-semibold shadow-lg"
         >
           Masuk
