@@ -6,12 +6,12 @@ export default class ResetPassword extends Component {
   render() {
     return (
       <div className="w-screen h-screen flex">
-        <div className="w-1/2 h-full">
-          <div className="px-[140px]">
+        <div className="w-full md:w-1/2 h-full overflow-y-auto">
+          <div className="px-8 md:px-[80px] 2xl:px-[140px]">
             <ResetPasswordForm />
           </div>
         </div>
-        <div className="w-1/2 h-full bg-gradient-to-b from-[#3730A3] to-[#312E81] flex flex-col justify-center">
+        <div className="hidden w-1/2 h-full bg-gradient-to-b from-[#3730A3] to-[#312E81] md:flex flex-col justify-center">
           <img src={ResetPasswordImg} alt="reset-password-img" />
           <div className="px-[140px] mt-14">
             <h5 className="uppercase text-sm text-white/70 font-semibold tracking-widest">

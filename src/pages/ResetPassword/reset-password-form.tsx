@@ -11,7 +11,7 @@ function ResetPasswordForm() {
   };
 
   return (
-    <div className="mt-20">
+    <div className="my-20">
       <div
         id="brand"
         className="bg-[#EEF2FF] rounded-md h-[60px] w-[60px] grid place-items-center"
@@ -27,7 +27,7 @@ function ResetPasswordForm() {
         orang.
       </p>
 
-      <form className="mt-11 w-[540px] space-y-[30px]">
+      <form className="w-full mt-11 md:w-[540px] space-y-[30px]">
         <div className="flex flex-col">
           <Label htmlFor="new_password" title="Kata Sandi Baru" />
           <InputText

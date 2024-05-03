@@ -1,3 +1,4 @@
+import InputText from "@/components/input-text";
 import Label from "@/components/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "@phosphor-icons/react";
@@ -9,7 +10,7 @@ const signinSchema = z.object({
   email: z
     .string()
     .nonempty({ message: "Email tidak boleh kosong" })
-    .email({ message: "Email tidak valid" })
+    .email({ message: "Format email tidak valid" })
     .trim(),
   password: z
     .string()
@@ -63,16 +64,15 @@ function LoginForm() {
       </p>
 
       <form
-        className="mt-11 w-[540px] space-y-[30px]"
+        className="w-full mt-11 md:w-[540px] space-y-[30px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col">
           <Label htmlFor="email" title="Email" />
-          <input
+          <InputText
             id="email"
             type="text"
             placeholder="example@example.com"
-            className="bg-[#F3F4F6] py-6 px-10 rounded-[8px] focus:outline-none placeholder:text-black"
             {...register("email")}
           />
           {errors.email && (
@@ -92,11 +92,10 @@ function LoginForm() {
               Lupa kata sandi?
             </Link>
           </div>
-          <input
+          <InputText
             id="password"
             type="password"
             placeholder="••••••••"
-            className="bg-[#F3F4F6] py-6 px-10 rounded-[8px] focus:outline-none placeholder:text-black"
             {...register("password")}
           />
           {errors.password && (
@@ -133,7 +132,7 @@ function LoginForm() {
         </button>
       </form>
 
-      <p className="mt-14 text-center w-[540px] text-base font-semibold text-[#4B5563]">
+      <p className="w-full mt-14 text-center md:w-[540px] text-base font-semibold text-[#4B5563]">
         Belum punya akun?{" "}
         <Link to={"/signup"} className="text-[#4F46E5]">
           Daftar sekarang, gratis!
