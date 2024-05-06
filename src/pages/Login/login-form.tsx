@@ -37,10 +37,14 @@ function LoginForm() {
 
   const onSubmit: SubmitHandler<SignInSchema> = (data) => {
     axios
-      .post("http://localhost:5000/api/login", {
-        email: data.email,
-        password: data.password,
-      })
+      .post(
+        "http://localhost:5000/api/login",
+        {
+          email: data.email,
+          password: data.password,
+        },
+        { withCredentials: true }
+      )
       .then((value) => {
         console.log(value.data);
         navigate("/dashboard");

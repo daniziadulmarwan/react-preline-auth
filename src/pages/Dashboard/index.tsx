@@ -1,6 +1,6 @@
 import { Component } from "react";
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 interface IState {
   name: string;
@@ -22,7 +22,8 @@ export default class Dashboard extends Component<IProps, IState> {
   refreshToken = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/authenticated/refresh-token"
+        "http://localhost:5000/api/authenticated/refresh-token",
+        { withCredentials: true }
       );
       console.log(response.data.access_token);
       const decoded = jwtDecode(response.data.token);

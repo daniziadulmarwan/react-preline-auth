@@ -34,11 +34,15 @@ function RegisterForm() {
 
   const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
     axios
-      .post("http://localhost:5000/api/register", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      })
+      .post(
+        "http://localhost:5000/api/register",
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        },
+        { withCredentials: true }
+      )
       .then((value) => {
         if (value.data.status == "success") {
           toast.success("Berhasil registrasi");
