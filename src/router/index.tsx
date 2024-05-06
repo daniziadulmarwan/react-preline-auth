@@ -7,7 +7,7 @@ import Dashboard from "@/pages/Dashboard";
 
 import PrivateRoute from "./private-route";
 import GuestRoute from "./guest-route";
-import ResetPasswordRoute from "./reset-password-route.tsx";
+import ResetPasswordRoute from "./reset-password-route";
 
 export default function Router() {
   return (

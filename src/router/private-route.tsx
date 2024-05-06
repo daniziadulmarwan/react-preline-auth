@@ -1,11 +1,11 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 function PrivateRoute() {
-  const token = localStorage.getItem("token");
+  // const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to={"/"} />;
-  }
+  // if (!token) {
+  //   return <Navigate to={"/"} />;
+  // }
   return <Outlet />;
 }
 

@@ -1,10 +1,45 @@
 import { Component } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
-export default class Dashboard extends Component {
+interface IState {
+  name: string;
+  token: string;
+}
+
+interface IProps {}
+
+export default class Dashboard extends Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      name: "",
+      token: "",
+    };
+  }
+
+  refreshToken = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/authenticated/refresh-token"
+      );
+      console.log(response.data.access_token);
+      const decoded = jwtDecode(response.data.token);
+      console.log(decoded);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   logout = () => {
     localStorage.removeItem("token");
     window.location.href = "/";
   };
+
+  componentDidMount(): void {
+    this.refreshToken();
+  }
 
   render() {
     return (
