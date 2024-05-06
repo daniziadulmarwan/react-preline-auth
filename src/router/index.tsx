@@ -5,7 +5,6 @@ import Register from "@/pages/Register";
 import ResetPassword from "@/pages/ResetPassword";
 import Dashboard from "@/pages/Dashboard";
 
-import PrivateRoute from "./private-route";
 import GuestRoute from "./guest-route";
 import ResetPasswordRoute from "./reset-password-route";
 
@@ -22,9 +21,7 @@ export default function Router() {
         <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
-      <Route element={<PrivateRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Route>
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   );
 }
