@@ -2,8 +2,10 @@ import InputText from "@/components/input-text";
 import Label from "@/components/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "@phosphor-icons/react";
+import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 const signinSchema = z.object({
@@ -23,6 +25,8 @@ const signinSchema = z.object({
 type SignInSchema = z.infer<typeof signinSchema>;
 
 function LoginForm() {
+  // const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,11 +36,21 @@ function LoginForm() {
   });
 
   const onSubmit: SubmitHandler<SignInSchema> = (data) => {
-    console.log(data);
-    console.log("makan");
+    axios
+      .post("http://localhost:5000/api/login", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((value) => {
+        console.log(value.data);
+        // navigate();
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        console.log(error);
+      });
   };
 
-  // const navigate = useNavigate();
   // const token = useAuth();
 
   // const handleClick = () => {

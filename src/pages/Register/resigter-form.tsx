@@ -1,8 +1,10 @@
 import InputText from "@/components/input-text";
 import Label from "@/components/label";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 const signupSchema = z.object({
@@ -20,6 +22,8 @@ const signupSchema = z.object({
 type SignUpSchema = z.infer<typeof signupSchema>;
 
 function RegisterForm() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -29,7 +33,21 @@ function RegisterForm() {
   });
 
   const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
-    console.log(data);
+    axios
+      .post("http://localhost:5000/api/register", {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+      .then((value) => {
+        if (value.data.status == "success") {
+          toast.success("Berhasil registrasi");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   return (
