@@ -7,6 +7,7 @@ import Dashboard from "@/pages/Dashboard";
 
 import GuestRoute from "./guest-route";
 import ResetPasswordRoute from "./reset-password-route";
+import PrivateRoute from "./private-route";
 
 export default function Router() {
   return (
@@ -21,7 +22,9 @@ export default function Router() {
         <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
 
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
     </Routes>
   );
 }
